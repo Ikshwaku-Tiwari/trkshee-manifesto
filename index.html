@@ -14,23 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'grotesk': ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        'cyber-cyan': '#5ADFDF',
-                        'cyber-mint': '#77EFBD',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <!-- GSAP + ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -55,6 +40,89 @@
             background: #000000;
             color: #ffffff;
             overflow-x: hidden;
+        }
+
+        /* Utility Classes (replacing Tailwind) */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+        }
+
+        .text-6xl {
+            font-size: 3.75rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em;
+        }
+
+        .mb-16 {
+            margin-bottom: 4rem;
+        }
+
+        .mb-20 {
+            margin-bottom: 5rem;
+        }
+
+        .py-20 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .space-y-8>*+* {
+            margin-top: 2rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .flex-shrink-0 {
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            .md\:text-5xl {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:text-6xl {
+                font-size: 3.75rem;
+            }
         }
 
         /* Preloader */
@@ -86,90 +154,20 @@
             margin-top: 2rem;
         }
 
-        /* Living Dark Matter Background */
-        .dark-matter-bg {
+        /* WebGL Canvas */
+        #webgl-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            overflow: hidden;
-            background: #000000;
-        }
-
-        .dark-matter-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background:
-                radial-gradient(ellipse at 20% 30%, #0e3b3b 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, #020617 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, #000000 0%, transparent 70%),
-                radial-gradient(ellipse at 70% 20%, #0e3b3b 0%, transparent 40%),
-                radial-gradient(ellipse at 30% 80%, #020617 0%, transparent 45%);
-            animation: darkMatterFlow 25s ease-in-out infinite;
-        }
-
-        .dark-matter-bg::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background:
-                radial-gradient(ellipse at 60% 40%, #020617 0%, transparent 45%),
-                radial-gradient(ellipse at 40% 60%, #0e3b3b 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 80%, #000000 0%, transparent 60%);
-            animation: darkMatterFlow 30s ease-in-out infinite reverse;
-            opacity: 0.7;
-        }
-
-        @keyframes darkMatterFlow {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-
-            25% {
-                transform: translate(2%, 3%) rotate(2deg) scale(1.02);
-            }
-
-            50% {
-                transform: translate(-1%, 2%) rotate(-1deg) scale(1.01);
-            }
-
-            75% {
-                transform: translate(3%, -2%) rotate(1deg) scale(1.03);
-            }
-        }
-
-        /* Particle Canvas */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* Background Overlay */
+        /* Background Overlay - DISABLED to show Three.js canvas */
         .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-            z-index: 0;
-            pointer-events: none;
+            display: none;
         }
 
         /* Noise/Grain Overlay */
@@ -193,8 +191,8 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0.03;
+            z-index: 3;
+            opacity: 0.02;
             background-image:
                 linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
@@ -215,17 +213,6 @@
 
         .ticker-tl {
             top: 2rem;
-            left: 2rem;
-        }
-
-        .ticker-tr {
-            top: 4rem;
-            right: 2rem;
-            text-align: right;
-        }
-
-        .ticker-bl {
-            bottom: 2rem;
             left: 2rem;
         }
 
@@ -253,6 +240,7 @@
             opacity: 0.5;
             cursor: pointer;
             transition: opacity 0.3s ease;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .sound-toggle:hover {
@@ -492,6 +480,17 @@
             z-index: 1;
         }
 
+        /* Spacer */
+        .spacer-10vw {
+            width: 10vw;
+            flex-shrink: 0;
+        }
+
+        /* Algorithm section override */
+        .algorithm-section {
+            padding: 0 !important;
+        }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 2px;
@@ -551,11 +550,8 @@
         <div class="preloader-text">SYSTEM INITIALIZING...</div>
     </div>
 
-    <!-- Living Dark Matter Background -->
-    <div class="dark-matter-bg"></div>
-
-    <!-- Particle Canvas -->
-    <canvas id="particle-canvas"></canvas>
+    <!-- WebGL Canvas (Three.js) -->
+    <canvas id="webgl-canvas"></canvas>
 
     <!-- Background Overlay -->
     <div class="bg-overlay"></div>
@@ -577,11 +573,11 @@
     </div>
 
     <!-- Sound Toggle -->
-    <div class="sound-toggle font-grotesk" id="sound-toggle">
+    <div class="sound-toggle" id="sound-toggle">
         SOUND [OFF]
     </div>
 
-    <!-- Background Audio (Ambient Soundscape) -->
+    <!-- Background Audio -->
     <audio id="ambient-audio" loop>
         <source src="ambient-soundscapes-007-space-atmosphere-304974.mp3" type="audio/mpeg">
     </audio>
@@ -600,33 +596,22 @@
         <!-- Section 2: The Manifesto -->
         <section id="manifesto">
             <div class="max-w-4xl mx-auto space-y-8">
-                <p class="philosophy-line">
-                    In an age of infinite distraction,
-                </p>
-                <p class="philosophy-line">
-                    Focus is the currency.
-                </p>
-                <p class="philosophy-line" style="margin-top: 4rem;">
-                    We engineer cognitive revolution.
-                </p>
-                <p class="philosophy-line" style="margin-top: 4rem;">
-                    Credential ≠ Competence.
-                </p>
+                <p class="philosophy-line">In an age of infinite distraction,</p>
+                <p class="philosophy-line">Focus is the currency.</p>
+                <p class="philosophy-line" style="margin-top: 4rem;">We engineer cognitive revolution.</p>
+                <p class="philosophy-line" style="margin-top: 4rem;">Credential ≠ Competence.</p>
             </div>
         </section>
 
         <!-- Section 3: The Algorithm (Horizontal Scroll) -->
-        <section id="algorithm-section" class="!p-0">
+        <section id="algorithm-section" class="algorithm-section">
             <div class="w-full py-20">
-                <h2 class="text-center text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-20">THE
-                    MASTERY ALGORITHM</h2>
+                <h2 class="text-center text-4xl font-bold uppercase tracking-tight mb-20">THE MASTERY ALGORITHM</h2>
 
                 <div class="horizontal-wrapper" id="horizontal-wrapper">
                     <div class="horizontal-container" id="horizontal-container">
-                        <!-- Spacer -->
-                        <div class="w-[10vw] flex-shrink-0"></div>
+                        <div class="spacer-10vw"></div>
 
-                        <!-- Card 1: The Connection -->
                         <div class="algorithm-card">
                             <div class="card-time">[10-15] mins</div>
                             <h3 class="card-title">THE CONNECTION</h3>
@@ -635,7 +620,6 @@
                             <span class="card-arrow">→</span>
                         </div>
 
-                        <!-- Card 2: First Principles -->
                         <div class="algorithm-card">
                             <div class="card-time">[30-40] mins</div>
                             <h3 class="card-title">FIRST PRINCIPLES</h3>
@@ -644,7 +628,6 @@
                             <span class="card-arrow">→</span>
                         </div>
 
-                        <!-- Card 3: Sparring -->
                         <div class="algorithm-card">
                             <div class="card-time">[15-20] mins</div>
                             <h3 class="card-title">SPARRING</h3>
@@ -653,7 +636,6 @@
                             <span class="card-arrow">→</span>
                         </div>
 
-                        <!-- Card 4: Teach-Back (Hero Card) -->
                         <div class="algorithm-card hero-card">
                             <div class="card-time">[10-15] mins</div>
                             <h3 class="card-title">TEACH-BACK</h3>
@@ -662,7 +644,6 @@
                             <span class="card-arrow" style="color: #000;">→</span>
                         </div>
 
-                        <!-- Card 5: Doubts & Industry -->
                         <div class="algorithm-card">
                             <div class="card-time">[10-20] mins</div>
                             <h3 class="card-title">DOUBTS & INDUSTRY</h3>
@@ -670,8 +651,7 @@
                             <p class="card-item">&gt; Closing Loop</p>
                         </div>
 
-                        <!-- Spacer -->
-                        <div class="w-[10vw] flex-shrink-0"></div>
+                        <div class="spacer-10vw"></div>
                     </div>
                 </div>
             </div>
@@ -680,22 +660,16 @@
         <!-- Section 4: The Philosophy -->
         <section id="philosophy-section">
             <div class="philosophy-card" id="philosophy-card">
-                <!-- Rotating Geometric Shape -->
                 <div class="geometric-shape">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Outer octagon -->
                         <polygon points="100,10 170,40 190,100 170,160 100,190 30,160 10,100 30,40"
                             stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" />
-                        <!-- Inner octagon -->
                         <polygon points="100,40 140,55 155,100 140,145 100,160 60,145 45,100 60,55"
                             stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none" />
-                        <!-- Center diamond -->
                         <polygon points="100,70 130,100 100,130 70,100" stroke="rgba(90,223,223,0.4)" stroke-width="1"
                             fill="none" />
-                        <!-- Cross lines -->
                         <line x1="100" y1="10" x2="100" y2="190" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
                         <line x1="10" y1="100" x2="190" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
-                        <!-- Diagonal lines -->
                         <line x1="30" y1="40" x2="170" y2="160" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" />
                         <line x1="170" y1="40" x2="30" y2="160" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" />
                     </svg>
@@ -711,10 +685,11 @@
             </div>
         </section>
 
-        <!-- Section 5: Join The Network (Contact) -->
+        <!-- Section 5: Join The Network -->
         <section id="contact">
             <div class="w-full max-w-4xl mx-auto">
-                <h2 class="text-sm uppercase tracking-[0.3em] opacity-40 mb-16 text-center">Join The Network</h2>
+                <h2 class="text-sm uppercase mb-16 text-center" style="letter-spacing: 0.3em; opacity: 0.4;">Join The
+                    Network</h2>
 
                 <div class="contact-link-wrapper">
                     <a href="https://instagram.com/trkshee_official" target="_blank" rel="noopener noreferrer"
@@ -739,10 +714,21 @@
     </main>
 
     <script>
+        // Check if required libraries loaded
+        if (typeof THREE === 'undefined') {
+            console.error('Three.js failed to load');
+        }
+        if (typeof gsap === 'undefined') {
+            console.error('GSAP failed to load');
+        }
+        if (typeof Lenis === 'undefined') {
+            console.error('Lenis failed to load');
+        }
+
         // Register GSAP plugins
         gsap.registerPlugin(ScrollTrigger);
 
-        // Initialize Lenis smooth scroll with HEAVY feel
+        // Initialize Lenis smooth scroll
         const lenis = new Lenis({
             lerp: 0.05,
             duration: 2.0,
@@ -754,115 +740,215 @@
             touchMultiplier: 1.2,
         });
 
-        // Sync Lenis with GSAP
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
-
-        // Stop Lenis during preloader
         lenis.stop();
 
         // ============================================
-        // PARTICLE SYSTEM (Neural Constellation)
+        // THREE.JS SPACE SCENE
         // ============================================
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 80;
-        const connectionDistance = 150;
+        let scene, camera, renderer;
+        let starfield, holoEarth;
+        let scrollProgress = 0;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        function initThreeJS() {
+            const canvas = document.getElementById('webgl-canvas');
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 3000);
+            camera.position.z = 800;
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            createStarfield();
+            createHoloEarth();
+            animateThreeJS();
+
+            window.addEventListener('resize', onWindowResize);
+            console.log('Three.js initialized successfully');
         }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.radius = Math.random() * 1.5 + 0.5;
+        function createStarfield() {
+            const starCount = 3000;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(starCount * 3);
+            const colors = new Float32Array(starCount * 3);
+
+            const cyanColor = new THREE.Color(0x5ADFDF);
+            const whiteColor = new THREE.Color(0xffffff);
+
+            for (let i = 0; i < starCount; i++) {
+                const radius = 800;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = radius * Math.cos(phi) - 200;
+
+                const isCyan = Math.random() < 0.15;
+                const color = isCyan ? cyanColor : whiteColor;
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
             }
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < connectionDistance) {
-                        const opacity = (1 - distance / connectionDistance) * 0.15;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(90, 223, 223, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+            const material = new THREE.PointsMaterial({
+                size: 4,
+                vertexColors: true,
+                transparent: true,
+                opacity: 1.0,
+                sizeAttenuation: true
             });
 
-            connectParticles();
-            requestAnimationFrame(animateParticles);
+            starfield = new THREE.Points(geometry, material);
+            scene.add(starfield);
         }
 
-        resizeCanvas();
-        initParticles();
-        animateParticles();
+        function createHoloEarth() {
+            const earthRadius = 80;
+            const pointCount = 2000;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(pointCount * 3);
+            const colors = new Float32Array(pointCount * 3);
 
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
+            const cyanColor = new THREE.Color(0x5ADFDF);
+            const mintColor = new THREE.Color(0x77EFBD);
+
+            for (let i = 0; i < pointCount; i++) {
+                const y = 1 - (i / (pointCount - 1)) * 2;
+                const radiusAtY = Math.sqrt(1 - y * y);
+                const theta = ((i % pointCount) + 0.5) / pointCount * Math.PI * 100;
+
+                positions[i * 3] = Math.cos(theta) * radiusAtY * earthRadius;
+                positions[i * 3 + 1] = y * earthRadius;
+                positions[i * 3 + 2] = Math.sin(theta) * radiusAtY * earthRadius;
+
+                const t = Math.random();
+                const color = new THREE.Color().lerpColors(cyanColor, mintColor, t);
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 2,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0,
+                sizeAttenuation: true
+            });
+
+            holoEarth = new THREE.Points(geometry, material);
+            holoEarth.position.z = -400;
+            holoEarth.position.y = -50;
+            scene.add(holoEarth);
+
+            const ringGeometry = new THREE.RingGeometry(earthRadius + 15, earthRadius + 17, 64);
+            const ringMaterial = new THREE.MeshBasicMaterial({
+                color: 0x5ADFDF,
+                transparent: true,
+                opacity: 0,
+                side: THREE.DoubleSide
+            });
+
+            const ring1 = new THREE.Mesh(ringGeometry, ringMaterial.clone());
+            ring1.rotation.x = Math.PI / 2;
+            ring1.position.copy(holoEarth.position);
+            ring1.userData.isRing = true;
+            scene.add(ring1);
+
+            const ring2 = new THREE.Mesh(ringGeometry.clone(), ringMaterial.clone());
+            ring2.rotation.x = Math.PI / 3;
+            ring2.rotation.y = Math.PI / 4;
+            ring2.position.copy(holoEarth.position);
+            ring2.userData.isRing = true;
+            scene.add(ring2);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animateThreeJS() {
+            requestAnimationFrame(animateThreeJS);
+
+            if (starfield) {
+                starfield.rotation.y += 0.0002;
+                starfield.rotation.x += 0.0001;
+            }
+
+            if (holoEarth) {
+                holoEarth.rotation.y += 0.003;
+            }
+
+            scene.traverse((child) => {
+                if (child.userData && child.userData.isRing) {
+                    child.rotation.z += 0.002;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Three.js
+        initThreeJS();
+
+        // Scroll-linked camera animation
+        ScrollTrigger.create({
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.5,
+            onUpdate: (self) => {
+                scrollProgress = self.progress;
+
+                const startZ = 800;
+                const endZ = 100;
+                camera.position.z = startZ - (scrollProgress * (startZ - endZ));
+
+                if (holoEarth) {
+                    const earthOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.3));
+                    holoEarth.material.opacity = earthOpacity * 0.9;
+                    holoEarth.position.z = -400 + (scrollProgress * 350);
+                }
+
+                scene.traverse((child) => {
+                    if (child.userData && child.userData.isRing && child.material) {
+                        const ringOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.4) / 0.3));
+                        child.material.opacity = ringOpacity * 0.4;
+                        child.position.z = -400 + (scrollProgress * 350);
+                    }
+                });
+
+                if (starfield) {
+                    const scale = 1 + scrollProgress * 0.3;
+                    starfield.scale.set(scale, scale, scale);
+                }
+            }
         });
 
-        // ============================================
-        // DATA TICKERS
-        // ============================================
+        // Data Tickers
         function updateTickers() {
             const ticker1 = document.getElementById('ticker-1');
             const ticker2 = document.getElementById('ticker-2');
 
-            // Generate random hex
             const hex = '0x' + Math.floor(Math.random() * 0xFFFFFFFF).toString(16).toUpperCase().padStart(8, '0');
             ticker1.textContent = hex;
 
-            // Generate random progress
             const progress = Math.floor(Math.random() * 20 + 80);
             const bars = '█'.repeat(Math.floor(progress / 12.5)) + '░'.repeat(8 - Math.floor(progress / 12.5));
             ticker2.textContent = bars + ' ' + progress + '%';
@@ -871,9 +957,7 @@
         setInterval(updateTickers, 2000);
         updateTickers();
 
-        // ============================================
-        // PRELOADER
-        // ============================================
+        // Preloader
         const preloader = document.getElementById('preloader');
         const preloaderCounter = document.getElementById('preloader-counter');
         const mainContent = document.getElementById('main-content');
@@ -881,12 +965,9 @@
         let counter = { value: 0 };
 
         const preloaderTL = gsap.timeline({
-            onComplete: () => {
-                lenis.start();
-            }
+            onComplete: () => { lenis.start(); }
         });
 
-        // Animate counter from 0 to 100
         preloaderTL.to(counter, {
             value: 100,
             duration: 3,
@@ -897,17 +978,14 @@
             }
         });
 
-        // Slide up to reveal
         preloaderTL.to(preloader, {
             yPercent: -100,
             duration: 1.2,
             ease: 'power4.inOut'
         }, '+=0.5');
 
-        // Show main content
         preloaderTL.set(mainContent, { visibility: 'visible' }, '-=1.2');
 
-        // Animate hero
         preloaderTL.from('#hero-title', {
             y: 100,
             opacity: 0,
@@ -922,9 +1000,7 @@
             ease: 'power3.out'
         }, '-=1');
 
-        // ============================================
-        // SOUND TOGGLE
-        // ============================================
+        // Sound Toggle
         const soundToggle = document.getElementById('sound-toggle');
         const ambientAudio = document.getElementById('ambient-audio');
         let isSoundOn = false;
@@ -933,7 +1009,6 @@
 
         soundToggle.addEventListener('click', () => {
             isSoundOn = !isSoundOn;
-
             if (isSoundOn) {
                 ambientAudio.play();
                 soundToggle.textContent = 'SOUND [ON]';
@@ -943,9 +1018,7 @@
             }
         });
 
-        // ============================================
-        // HERO PARALLAX ON SCROLL
-        // ============================================
+        // Hero Parallax
         gsap.to('#hero-content', {
             yPercent: 50,
             opacity: 0.3,
@@ -958,11 +1031,8 @@
             }
         });
 
-        // ============================================
-        // MANIFESTO SCROLL REVEAL
-        // ============================================
+        // Manifesto Scroll Reveal
         const philosophyLines = document.querySelectorAll('.philosophy-line');
-
         philosophyLines.forEach((line) => {
             gsap.to(line, {
                 opacity: 1,
@@ -976,19 +1046,12 @@
                     toggleActions: 'play none none reverse'
                 }
             });
-
             gsap.set(line, { y: 40 });
         });
 
-        // ============================================
-        // HORIZONTAL SCROLL
-        // ============================================
-        const horizontalWrapper = document.getElementById('horizontal-wrapper');
+        // Horizontal Scroll
         const horizontalContainer = document.getElementById('horizontal-container');
-
-        const getScrollDistance = () => {
-            return horizontalContainer.scrollWidth - window.innerWidth;
-        };
+        const getScrollDistance = () => horizontalContainer.scrollWidth - window.innerWidth;
 
         gsap.to(horizontalContainer, {
             x: () => -getScrollDistance(),
@@ -1004,7 +1067,6 @@
             }
         });
 
-        // Animate cards on scroll
         const cards = document.querySelectorAll('.algorithm-card');
         cards.forEach((card, index) => {
             gsap.from(card, {
@@ -1019,9 +1081,7 @@
             });
         });
 
-        // ============================================
-        // PHILOSOPHY SECTION REVEAL
-        // ============================================
+        // Philosophy Section
         gsap.from('#philosophy-card', {
             opacity: 0,
             y: 60,
@@ -1034,9 +1094,7 @@
             }
         });
 
-        // ============================================
-        // CONTACT LINKS REVEAL
-        // ============================================
+        // Contact Links
         gsap.from('#contact .contact-link', {
             y: 30,
             stagger: 0.15,
@@ -1049,9 +1107,7 @@
             }
         });
 
-        // ============================================
-        // FOOTER ANIMATION
-        // ============================================
+        // Footer Animation
         gsap.from('.footer-giant-text', {
             yPercent: 30,
             opacity: 0,
@@ -1063,12 +1119,7 @@
             }
         });
 
-        // ============================================
-        // REFRESH ScrollTrigger on resize
-        // ============================================
-        window.addEventListener('resize', () => {
-            ScrollTrigger.refresh();
-        });
+        window.addEventListener('resize', () => { ScrollTrigger.refresh(); });
     </script>
 </body>
 
