@@ -249,6 +249,7 @@
 
         /* Section base styles */
         section {
+            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -452,6 +453,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0.95) 40%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+            z-index: 20;
         }
 
         .footer-text {
@@ -459,9 +462,9 @@
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            opacity: 0.4;
+            color: rgba(255, 255, 255, 0.8);
             position: relative;
-            z-index: 2;
+            z-index: 22;
         }
 
         .footer-giant-text {
@@ -473,11 +476,81 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.02em;
-            opacity: 0.15;
             white-space: nowrap;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-            -webkit-text-fill-color: transparent;
-            z-index: 1;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.35);
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.05);
+            z-index: 21;
+        }
+
+        /* Hero Sub-definition */
+        .hero-sub-definition {
+            font-size: 0.75rem;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: #5ADFDF;
+            margin-top: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            opacity: 0.6;
+        }
+
+        .scroll-chevrons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .scroll-chevron {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid #5ADFDF;
+            border-bottom: 2px solid #5ADFDF;
+            transform: rotate(45deg);
+            animation: chevronPulse 1.5s ease-in-out infinite;
+        }
+
+        .scroll-chevron:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .scroll-chevron:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .scroll-chevron:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes chevronPulse {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-5px, -5px);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(5px, 5px);
+            }
         }
 
         /* Spacer */
@@ -590,6 +663,16 @@
             <div id="hero-content">
                 <h1 class="hero-title" id="hero-title">TRKSHEE</h1>
                 <p class="hero-subtitle" id="hero-subtitle">The Intellectual Gymnasium</p>
+                <p class="hero-sub-definition">A Mentorship Service</p>
+            </div>
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span>SCROLL</span>
+                <div class="scroll-chevrons">
+                    <div class="scroll-chevron"></div>
+                    <div class="scroll-chevron"></div>
+                    <div class="scroll-chevron"></div>
+                </div>
             </div>
         </section>
 
