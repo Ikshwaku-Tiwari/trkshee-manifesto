@@ -482,18 +482,17 @@
             z-index: 21;
         }
 
-        /* Hero Sub-definition */
+        /* Hero Sub-definition - matches subtitle style */
         .hero-sub-definition {
-            font-size: 0.75rem;
-            font-family: monospace;
+            font-size: clamp(0.75rem, 1.5vw, 1rem);
+            font-weight: 300;
             text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: #5ADFDF;
-            margin-top: 1.5rem;
-            opacity: 0.8;
+            letter-spacing: 0.4em;
+            opacity: 0.5;
+            margin-top: 1rem;
         }
 
-        /* Scroll Indicator */
+        /* Scroll Indicator - Minimalist */
         .scroll-indicator {
             position: absolute;
             bottom: 3rem;
@@ -502,54 +501,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            font-size: 0.875rem;
+            gap: 0.5rem;
+            font-size: 0.625rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
-            opacity: 0.6;
+            letter-spacing: 0.3em;
+            opacity: 0.5;
+            animation: scrollBounce 2s ease-in-out infinite;
         }
 
-        .scroll-chevrons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
+        .scroll-indicator .scroll-arrow {
+            font-size: 1.25rem;
         }
 
-        .scroll-chevron {
-            width: 24px;
-            height: 24px;
-            border-right: 2px solid #5ADFDF;
-            border-bottom: 2px solid #5ADFDF;
-            transform: rotate(45deg);
-            animation: chevronPulse 1.5s ease-in-out infinite;
-        }
+        @keyframes scrollBounce {
 
-        .scroll-chevron:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .scroll-chevron:nth-child(2) {
-            animation-delay: 0.15s;
-        }
-
-        .scroll-chevron:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        @keyframes chevronPulse {
-            0% {
-                opacity: 0;
-                transform: rotate(45deg) translate(-5px, -5px);
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
             }
 
             50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-                transform: rotate(45deg) translate(5px, 5px);
+                transform: translateX(-50%) translateY(10px);
             }
         }
 
@@ -612,6 +584,25 @@
             .data-ticker {
                 display: none;
             }
+
+            /* Mobile Footer Fixes */
+            .footer-wrapper {
+                min-height: 50vh;
+                padding-bottom: 6rem;
+            }
+
+            .footer-giant-text {
+                font-size: clamp(4rem, 20vw, 8rem);
+                bottom: 1rem;
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            }
+
+            .footer-text {
+                font-size: 0.625rem;
+                padding: 0 1rem;
+                text-align: center;
+                line-height: 1.6;
+            }
         }
     </style>
 </head>
@@ -668,11 +659,7 @@
             <!-- Scroll Indicator -->
             <div class="scroll-indicator">
                 <span>SCROLL</span>
-                <div class="scroll-chevrons">
-                    <div class="scroll-chevron"></div>
-                    <div class="scroll-chevron"></div>
-                    <div class="scroll-chevron"></div>
-                </div>
+                <span class="scroll-arrow">↓</span>
             </div>
         </section>
 
