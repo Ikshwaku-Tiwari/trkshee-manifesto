@@ -183,6 +183,221 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
 
+        /* ============================================
+           COGNITIVE CATALYST CURSOR SYSTEM
+           ============================================ */
+
+        /* Hide default cursor globally - DESKTOP ONLY */
+        @media (hover: hover) and (pointer: fine) {
+            * {
+                cursor: none !important;
+            }
+        }
+
+        /* Hide custom cursor on touch devices */
+        @media (hover: none),
+        (pointer: coarse) {
+
+            .custom-cursor,
+            .quantum-trace {
+                display: none !important;
+            }
+        }
+
+        /* Custom Cursor Container */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        /* Singularity Dot - Central Core */
+        .cursor-singularity {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #FF8C00 0%, #FF6B00 50%, rgba(255, 140, 0, 0.5) 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #FF8C00, 0 0 20px rgba(255, 140, 0, 0.5);
+            transition: opacity 0.2s ease;
+        }
+
+        /* Rotating Bracket Frame */
+        .cursor-bracket {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: bracketRotate 8s linear infinite;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                width 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                height 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes bracketRotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Shatter Shards - Hidden by default */
+        .cursor-shards {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .cursor-shard {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .cursor-shard:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF8C00;
+            box-shadow: 0 0 6px #FF8C00;
+        }
+
+        .cursor-shard:nth-child(2) {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: #4B0082;
+            box-shadow: 0 0 6px #4B0082;
+        }
+
+        .cursor-shard:nth-child(3) {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF8C00;
+            box-shadow: 0 0 6px #FF8C00;
+        }
+
+        .cursor-shard:nth-child(4) {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background: #4B0082;
+            box-shadow: 0 0 6px #4B0082;
+        }
+
+        /* Hover State - Shatter Effect */
+        .custom-cursor.hovering .cursor-singularity {
+            opacity: 0;
+        }
+
+        .custom-cursor.hovering .cursor-bracket {
+            width: 50px;
+            height: 50px;
+            animation: none;
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-color: rgba(255, 140, 0, 0.8);
+        }
+
+        .custom-cursor.hovering .cursor-shard {
+            opacity: 1;
+            animation: shardOrbit 2s linear infinite;
+        }
+
+        .custom-cursor.hovering .cursor-shard:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .custom-cursor.hovering .cursor-shard:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .custom-cursor.hovering .cursor-shard:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes shardOrbit {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        /* Click State - Pulse */
+        .custom-cursor.clicking .cursor-bracket {
+            transform: translate(-50%, -50%) rotate(45deg) scale(1.5);
+            border-color: rgba(255, 140, 0, 1);
+        }
+
+        /* Click Burst Particles */
+        .click-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .burst-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Quantum Trace Trail */
+        .quantum-trace {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+
+        .trace-point {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 140, 0, 0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        /* Magnetic class for cards */
+        .magnetic {
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
         /* Technical Grid Overlay */
         .technical-grid {
             position: fixed;
@@ -626,6 +841,19 @@
     <!-- Noise/Grain Overlay -->
     <div class="noise-overlay"></div>
 
+    <!-- Custom Cursor System -->
+    <div class="custom-cursor" id="custom-cursor">
+        <div class="cursor-singularity"></div>
+        <div class="cursor-bracket"></div>
+        <div class="cursor-shards">
+            <div class="cursor-shard"></div>
+            <div class="cursor-shard"></div>
+            <div class="cursor-shard"></div>
+            <div class="cursor-shard"></div>
+        </div>
+    </div>
+    <div class="quantum-trace" id="quantum-trace"></div>
+
     <!-- Data Tickers -->
     <div class="data-ticker ticker-tl">
         <div>SYS.STATUS</div>
@@ -816,11 +1044,24 @@
         lenis.stop();
 
         // ============================================
-        // THREE.JS SPACE SCENE
+        // THREE.JS SPACE SCENE - SUPERNOVA 1987A DAMRU
         // ============================================
         let scene, camera, renderer;
-        let starfield, holoEarth;
+        let starfield, damruGroup, innerRingPoints, outerLobesPoints, coreGlow;
         let scrollProgress = 0;
+        let starfieldOriginalPositions = null;
+        let animationTime = 0;
+
+        // Color Palette
+        const AMBER = 0xFF8C00;
+        const INDIGO = 0x4B0082;
+        const WHITE = 0xFFFFFF;
+
+        // Mobile detection for Three.js responsive adjustments
+        const isMobileView = window.innerWidth < 768;
+        const damruScale = isMobileView ? 0.6 : 1.0;
+        const cameraFOV = isMobileView ? 75 : 60; // Wider FOV on mobile to see more
+        const initialCameraZ = isMobileView ? 600 : 800;
 
         function initThreeJS() {
             const canvas = document.getElementById('webgl-canvas');
@@ -828,19 +1069,19 @@
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0x000000);
 
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 3000);
-            camera.position.z = 800;
+            camera = new THREE.PerspectiveCamera(cameraFOV, window.innerWidth / window.innerHeight, 0.1, 3000);
+            camera.position.z = initialCameraZ;
 
             renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
             createStarfield();
-            createHoloEarth();
+            createDamru();
             animateThreeJS();
 
             window.addEventListener('resize', onWindowResize);
-            console.log('Three.js initialized successfully');
+            console.log('Three.js initialized with Supernova 1987A Damru');
         }
 
         function createStarfield() {
@@ -851,6 +1092,7 @@
 
             const cyanColor = new THREE.Color(0x5ADFDF);
             const whiteColor = new THREE.Color(0xffffff);
+            const amberColor = new THREE.Color(AMBER);
 
             for (let i = 0; i < starCount; i++) {
                 const radius = 800;
@@ -861,8 +1103,16 @@
                 positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
                 positions[i * 3 + 2] = radius * Math.cos(phi) - 200;
 
-                const isCyan = Math.random() < 0.15;
-                const color = isCyan ? cyanColor : whiteColor;
+                // Mix of cyan, white, and occasional amber stars
+                const rand = Math.random();
+                let color;
+                if (rand < 0.1) {
+                    color = cyanColor;
+                } else if (rand < 0.15) {
+                    color = amberColor;
+                } else {
+                    color = whiteColor;
+                }
                 colors[i * 3] = color.r;
                 colors[i * 3 + 1] = color.g;
                 colors[i * 3 + 2] = color.b;
@@ -870,6 +1120,9 @@
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // Store original positions for gravitation effect
+            starfieldOriginalPositions = new Float32Array(positions);
 
             const material = new THREE.PointsMaterial({
                 size: 4,
@@ -883,68 +1136,225 @@
             scene.add(starfield);
         }
 
-        function createHoloEarth() {
-            const earthRadius = 80;
-            const pointCount = 2000;
+        function createDamru() {
+            damruGroup = new THREE.Group();
+            damruGroup.position.z = isMobileView ? -250 : -400;
+            damruGroup.position.y = isMobileView ? 0 : -50;
+
+            // Apply mobile scale
+            damruGroup.scale.set(damruScale, damruScale, damruScale);
+
+            // Create outer lobes (hyperboloid of one sheet)
+            createOuterLobes();
+
+            // Create inner ring (torus at waist)
+            createInnerRing();
+
+            // Create central core glow
+            createCoreGlow();
+
+            scene.add(damruGroup);
+        }
+
+        function createOuterLobes() {
+            const lobePointCount = 3000;
             const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(pointCount * 3);
-            const colors = new Float32Array(pointCount * 3);
+            const positions = new Float32Array(lobePointCount * 3);
+            const colors = new Float32Array(lobePointCount * 3);
+            const sizes = new Float32Array(lobePointCount);
 
-            const cyanColor = new THREE.Color(0x5ADFDF);
-            const mintColor = new THREE.Color(0x77EFBD);
+            const amberColor = new THREE.Color(AMBER);
+            const indigoColor = new THREE.Color(INDIGO);
+            const whiteColor = new THREE.Color(WHITE);
 
-            for (let i = 0; i < pointCount; i++) {
-                const y = 1 - (i / (pointCount - 1)) * 2;
-                const radiusAtY = Math.sqrt(1 - y * y);
-                const theta = ((i % pointCount) + 0.5) / pointCount * Math.PI * 100;
+            // Hyperboloid of one sheet: x² + y² - z² = 1
+            // Parametric: x = a*cosh(v)*cos(u), y = a*cosh(v)*sin(u), z = c*sinh(v)
+            const scale = 60;
+            const heightScale = 100;
 
-                positions[i * 3] = Math.cos(theta) * radiusAtY * earthRadius;
-                positions[i * 3 + 1] = y * earthRadius;
-                positions[i * 3 + 2] = Math.sin(theta) * radiusAtY * earthRadius;
+            for (let i = 0; i < lobePointCount; i++) {
+                const u = Math.random() * Math.PI * 2; // Angle around axis
+                const v = (Math.random() - 0.5) * 3; // Height parameter (-1.5 to 1.5)
 
-                const t = Math.random();
-                const color = new THREE.Color().lerpColors(cyanColor, mintColor, t);
+                // Hyperboloid equation with some noise for organic feel
+                const coshV = Math.cosh(v);
+                const sinhV = Math.sinh(v);
+                const noise = 1 + (Math.random() - 0.5) * 0.15;
+
+                const x = scale * coshV * Math.cos(u) * noise;
+                const y = scale * coshV * Math.sin(u) * noise;
+                const z = heightScale * sinhV;
+
+                positions[i * 3] = x;
+                positions[i * 3 + 1] = z; // Swap y and z for vertical orientation
+                positions[i * 3 + 2] = y;
+
+                // Color gradient: indigo at the outer tips, amber near the waist
+                const distanceFromWaist = Math.abs(v);
+                const t = Math.min(distanceFromWaist / 1.5, 1);
+
+                // Blend from amber (center) to indigo (edges) with some white highlights
+                let color;
+                if (Math.random() < 0.08) {
+                    // Occasional white sparkle
+                    color = whiteColor.clone();
+                } else {
+                    color = new THREE.Color().lerpColors(amberColor, indigoColor, t * t);
+                }
+
                 colors[i * 3] = color.r;
                 colors[i * 3 + 1] = color.g;
                 colors[i * 3 + 2] = color.b;
+
+                // Variable particle sizes: larger near waist, smaller at tips
+                sizes[i] = 2 + (1 - t) * 4 + Math.random() * 2;
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
-            const material = new THREE.PointsMaterial({
-                size: 2,
-                vertexColors: true,
+            // Custom shader material for variable sizes
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    opacity: { value: 0 }
+                },
+                vertexShader: `
+                    attribute float size;
+                    attribute vec3 color;
+                    varying vec3 vColor;
+                    void main() {
+                        vColor = color;
+                        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                        gl_PointSize = size * (300.0 / -mvPosition.z);
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `,
+                fragmentShader: `
+                    uniform float opacity;
+                    varying vec3 vColor;
+                    void main() {
+                        float r = distance(gl_PointCoord, vec2(0.5));
+                        if (r > 0.5) discard;
+                        float alpha = 1.0 - smoothstep(0.3, 0.5, r);
+                        gl_FragColor = vec4(vColor, alpha * opacity);
+                    }
+                `,
                 transparent: true,
-                opacity: 0,
-                sizeAttenuation: true
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
             });
 
-            holoEarth = new THREE.Points(geometry, material);
-            holoEarth.position.z = -400;
-            holoEarth.position.y = -50;
-            scene.add(holoEarth);
+            outerLobesPoints = new THREE.Points(geometry, material);
+            outerLobesPoints.userData.isOuterLobes = true;
+            damruGroup.add(outerLobesPoints);
+        }
 
-            const ringGeometry = new THREE.RingGeometry(earthRadius + 15, earthRadius + 17, 64);
-            const ringMaterial = new THREE.MeshBasicMaterial({
-                color: 0x5ADFDF,
+        function createInnerRing() {
+            const ringPointCount = 800;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(ringPointCount * 3);
+            const colors = new Float32Array(ringPointCount * 3);
+            const sizes = new Float32Array(ringPointCount);
+
+            const amberColor = new THREE.Color(AMBER);
+            const whiteColor = new THREE.Color(WHITE);
+
+            // Torus shape at the waist (z = 0 plane)
+            const majorRadius = 60; // Distance from center to ring center
+            const minorRadius = 8;  // Thickness of the ring tube
+
+            for (let i = 0; i < ringPointCount; i++) {
+                const u = Math.random() * Math.PI * 2; // Angle around the ring
+                const v = Math.random() * Math.PI * 2; // Angle around the tube
+                const noise = 1 + (Math.random() - 0.5) * 0.1;
+
+                const x = (majorRadius + minorRadius * Math.cos(v)) * Math.cos(u) * noise;
+                const z = (majorRadius + minorRadius * Math.cos(v)) * Math.sin(u) * noise;
+                const y = minorRadius * Math.sin(v) * noise; // This stays small (tube thickness)
+
+                positions[i * 3] = x;
+                positions[i * 3 + 1] = y;
+                positions[i * 3 + 2] = z;
+
+                // Bright white/amber colors for the inner ring
+                const t = Math.random();
+                const color = t < 0.6 ? whiteColor.clone() : amberColor.clone();
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+
+                // Bright, consistent sizes for the ring
+                sizes[i] = 3 + Math.random() * 3;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    opacity: { value: 0 }
+                },
+                vertexShader: `
+                    attribute float size;
+                    attribute vec3 color;
+                    varying vec3 vColor;
+                    void main() {
+                        vColor = color;
+                        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                        gl_PointSize = size * (300.0 / -mvPosition.z);
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `,
+                fragmentShader: `
+                    uniform float opacity;
+                    varying vec3 vColor;
+                    void main() {
+                        float r = distance(gl_PointCoord, vec2(0.5));
+                        if (r > 0.5) discard;
+                        float alpha = 1.0 - smoothstep(0.2, 0.5, r);
+                        gl_FragColor = vec4(vColor, alpha * opacity * 1.2);
+                    }
+                `,
                 transparent: true,
-                opacity: 0,
-                side: THREE.DoubleSide
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
             });
 
-            const ring1 = new THREE.Mesh(ringGeometry, ringMaterial.clone());
-            ring1.rotation.x = Math.PI / 2;
-            ring1.position.copy(holoEarth.position);
-            ring1.userData.isRing = true;
-            scene.add(ring1);
+            innerRingPoints = new THREE.Points(geometry, material);
+            innerRingPoints.userData.isInnerRing = true;
+            damruGroup.add(innerRingPoints);
+        }
 
-            const ring2 = new THREE.Mesh(ringGeometry.clone(), ringMaterial.clone());
-            ring2.rotation.x = Math.PI / 3;
-            ring2.rotation.y = Math.PI / 4;
-            ring2.position.copy(holoEarth.position);
-            ring2.userData.isRing = true;
-            scene.add(ring2);
+        function createCoreGlow() {
+            // Create radial gradient texture for volumetric glow
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+
+            const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+            gradient.addColorStop(0, 'rgba(255, 200, 100, 0.8)');
+            gradient.addColorStop(0.2, 'rgba(255, 140, 0, 0.5)');
+            gradient.addColorStop(0.5, 'rgba(255, 100, 50, 0.2)');
+            gradient.addColorStop(1, 'rgba(75, 0, 130, 0)');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 256, 256);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                opacity: 0,
+                blending: THREE.AdditiveBlending
+            });
+
+            coreGlow = new THREE.Sprite(spriteMaterial);
+            coreGlow.scale.set(180, 180, 1);
+            coreGlow.userData.isCoreGlow = true;
+            damruGroup.add(coreGlow);
         }
 
         function onWindowResize() {
@@ -955,21 +1365,36 @@
 
         function animateThreeJS() {
             requestAnimationFrame(animateThreeJS);
+            animationTime += 0.016; // ~60fps time increment
 
+            // Starfield slow rotation
             if (starfield) {
                 starfield.rotation.y += 0.0002;
                 starfield.rotation.x += 0.0001;
             }
 
-            if (holoEarth) {
-                holoEarth.rotation.y += 0.003;
-            }
+            // Damru animations
+            if (damruGroup) {
+                // Gentle floating motion (sine wave)
+                damruGroup.position.x = Math.sin(animationTime * 0.5) * 5;
+                damruGroup.position.y = -50 + Math.sin(animationTime * 0.3) * 8;
 
-            scene.traverse((child) => {
-                if (child.userData && child.userData.isRing) {
-                    child.rotation.z += 0.002;
+                // Outer lobes slow rotation
+                if (outerLobesPoints) {
+                    outerLobesPoints.rotation.y += 0.002;
                 }
-            });
+
+                // Inner ring faster rotation (3x speed)
+                if (innerRingPoints) {
+                    innerRingPoints.rotation.y += 0.006;
+                }
+
+                // Core glow subtle pulsing
+                if (coreGlow) {
+                    const pulse = 1 + Math.sin(animationTime * 2) * 0.1;
+                    coreGlow.scale.set(180 * pulse, 180 * pulse, 1);
+                }
+            }
 
             renderer.render(scene, camera);
         }
@@ -977,7 +1402,7 @@
         // Initialize Three.js
         initThreeJS();
 
-        // Scroll-linked camera animation
+        // Scroll-linked camera and Damru animation
         ScrollTrigger.create({
             trigger: 'body',
             start: 'top top',
@@ -986,26 +1411,67 @@
             onUpdate: (self) => {
                 scrollProgress = self.progress;
 
-                const startZ = 800;
-                const endZ = 100;
+                // Camera zoom through the ring center (responsive)
+                const startZ = initialCameraZ;
+                const endZ = isMobileView ? 50 : -50; // Don't go as far through on mobile
                 camera.position.z = startZ - (scrollProgress * (startZ - endZ));
 
-                if (holoEarth) {
-                    const earthOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.3));
-                    holoEarth.material.opacity = earthOpacity * 0.9;
-                    holoEarth.position.z = -400 + (scrollProgress * 350);
+                // Damru opacity and effects
+                if (damruGroup) {
+                    const damruOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.15) / 0.25));
+
+                    // Update outer lobes opacity and pulsing scale
+                    if (outerLobesPoints && outerLobesPoints.material.uniforms) {
+                        outerLobesPoints.material.uniforms.opacity.value = damruOpacity * 0.85;
+
+                        // Lobes expand slightly as user scrolls
+                        const pulseScale = 1 + scrollProgress * 0.15;
+                        outerLobesPoints.scale.set(pulseScale, 1 + scrollProgress * 0.1, pulseScale);
+                    }
+
+                    // Inner ring higher opacity
+                    if (innerRingPoints && innerRingPoints.material.uniforms) {
+                        const ringOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.2));
+                        innerRingPoints.material.uniforms.opacity.value = ringOpacity * 1.0;
+                    }
+
+                    // Core glow
+                    if (coreGlow) {
+                        const glowOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.25) / 0.2));
+                        coreGlow.material.opacity = glowOpacity * 0.7;
+                    }
+
+                    // Move Damru toward camera as we scroll (responsive)
+                    const damruStartZ = isMobileView ? -250 : -400;
+                    const damruTravelDist = isMobileView ? 300 : 450;
+                    damruGroup.position.z = damruStartZ + (scrollProgress * damruTravelDist);
                 }
 
-                scene.traverse((child) => {
-                    if (child.userData && child.userData.isRing && child.material) {
-                        const ringOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.4) / 0.3));
-                        child.material.opacity = ringOpacity * 0.4;
-                        child.position.z = -400 + (scrollProgress * 350);
-                    }
-                });
+                // Starfield gravitation toward Damru center
+                if (starfield && starfieldOriginalPositions) {
+                    const positions = starfield.geometry.attributes.position.array;
+                    const gravitationStrength = scrollProgress * 0.3;
 
-                if (starfield) {
-                    const scale = 1 + scrollProgress * 0.3;
+                    // Target point (Damru center in world coordinates)
+                    const targetX = damruGroup ? damruGroup.position.x : 0;
+                    const targetY = damruGroup ? damruGroup.position.y : -50;
+                    const targetZ = damruGroup ? damruGroup.position.z : -400;
+
+                    for (let i = 0; i < positions.length; i += 3) {
+                        const origX = starfieldOriginalPositions[i];
+                        const origY = starfieldOriginalPositions[i + 1];
+                        const origZ = starfieldOriginalPositions[i + 2];
+
+                        // Interpolate toward Damru center
+                        positions[i] = origX + (targetX - origX) * gravitationStrength;
+                        positions[i + 1] = origY + (targetY - origY) * gravitationStrength;
+                        positions[i + 2] = origZ + (targetZ - origZ) * gravitationStrength;
+                    }
+
+                    starfield.geometry.attributes.position.needsUpdate = true;
+
+                    // Scale starfield
+                    const scale = 1 + scrollProgress * 0.2;
                     starfield.scale.set(scale, scale, scale);
                 }
             }
@@ -1190,6 +1656,320 @@
         });
 
         window.addEventListener('resize', () => { ScrollTrigger.refresh(); });
+
+        // ============================================
+        // COGNITIVE CATALYST CURSOR SYSTEM
+        // ============================================
+
+        // Detect touch/mobile devices
+        const isTouchDevice = (
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            window.matchMedia('(hover: none)').matches
+        );
+
+        const customCursor = document.getElementById('custom-cursor');
+        const quantumTrace = document.getElementById('quantum-trace');
+
+        // Only initialize cursor system on non-touch devices
+        if (!isTouchDevice && customCursor) {
+
+            // Cursor position state
+            let cursorX = window.innerWidth / 2;
+            let cursorY = window.innerHeight / 2;
+            let targetX = cursorX;
+            let targetY = cursorY;
+
+            // Normalized cursor position for Three.js (-1 to 1)
+            let normalizedCursorX = 0;
+            let normalizedCursorY = 0;
+
+            // Gravity well strength
+            const GRAVITY_STRENGTH = 0.015;
+
+            // Quantum trace points
+            const tracePoints = [];
+            const MAX_TRACE_POINTS = 15;
+            let traceFrameCount = 0;
+
+            // GSAP quick setters for performance
+            const setCursorX = gsap.quickTo(customCursor, 'left', { duration: 0.15, ease: 'power2.out' });
+            const setCursorY = gsap.quickTo(customCursor, 'top', { duration: 0.15, ease: 'power2.out' });
+
+            // Track mouse movement
+            document.addEventListener('mousemove', (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+
+                // Apply magnetic effect for cards
+                const magneticCards = document.querySelectorAll('.algorithm-card, .contact-link');
+                let magneticOffsetX = 0;
+                let magneticOffsetY = 0;
+
+                magneticCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardCenterX = rect.left + rect.width / 2;
+                    const cardCenterY = rect.top + rect.height / 2;
+                    const distance = Math.hypot(targetX - cardCenterX, targetY - cardCenterY);
+
+                    if (distance < 120) {
+                        const strength = (120 - distance) / 120 * 0.3;
+                        magneticOffsetX += (cardCenterX - targetX) * strength;
+                        magneticOffsetY += (cardCenterY - targetY) * strength;
+                    }
+                });
+
+                // Apply magnetic offset
+                targetX += magneticOffsetX;
+                targetY += magneticOffsetY;
+
+                // Update normalized coordinates for Three.js
+                normalizedCursorX = (e.clientX / window.innerWidth) * 2 - 1;
+                normalizedCursorY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            // Smooth cursor following
+            function updateCursor() {
+                // Lerp cursor position
+                cursorX += (targetX - cursorX) * 0.2;
+                cursorY += (targetY - cursorY) * 0.2;
+
+                setCursorX(cursorX);
+                setCursorY(cursorY);
+
+                // Update quantum trace
+                traceFrameCount++;
+                if (traceFrameCount % 3 === 0) { // Every 3 frames
+                    addTracePoint(cursorX, cursorY);
+                }
+
+                requestAnimationFrame(updateCursor);
+            }
+            updateCursor();
+
+            // Quantum Trace Trail
+            function addTracePoint(x, y) {
+                const point = document.createElement('div');
+                point.className = 'trace-point';
+                point.style.left = x + 'px';
+                point.style.top = y + 'px';
+                quantumTrace.appendChild(point);
+                tracePoints.push(point);
+
+                // Animate fade out
+                gsap.to(point, {
+                    opacity: 0,
+                    scale: 0.3,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    onComplete: () => {
+                        point.remove();
+                        const index = tracePoints.indexOf(point);
+                        if (index > -1) tracePoints.splice(index, 1);
+                    }
+                });
+
+                // Remove excess points
+                while (tracePoints.length > MAX_TRACE_POINTS) {
+                    const oldPoint = tracePoints.shift();
+                    oldPoint.remove();
+                }
+            }
+
+            // Hover detection for interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .algorithm-card, .contact-link, .sound-toggle');
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    customCursor.classList.add('hovering');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    customCursor.classList.remove('hovering');
+                });
+            });
+
+            // Click burst effect
+            document.addEventListener('mousedown', (e) => {
+                customCursor.classList.add('clicking');
+                createClickBurst(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', () => {
+                customCursor.classList.remove('clicking');
+            });
+
+            function createClickBurst(x, y) {
+                const colors = ['#FF8C00', '#4B0082', '#FF6B00', '#9400D3', '#FFFFFF'];
+                const particleCount = 8;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'burst-particle';
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.boxShadow = `0 0 6px ${particle.style.background}`;
+                    document.body.appendChild(particle);
+
+                    const angle = (i / particleCount) * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 50;
+                    const targetX = x + Math.cos(angle) * velocity;
+                    const targetY = y + Math.sin(angle) * velocity;
+
+                    gsap.to(particle, {
+                        left: targetX,
+                        top: targetY,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 0.6 + Math.random() * 0.3,
+                        ease: 'power2.out',
+                        onComplete: () => particle.remove()
+                    });
+                }
+            }
+
+            // Gravity Well - Integrate with Three.js animation loop
+            // Override the animateThreeJS function to include cursor gravity
+            const originalAnimateThreeJS = animateThreeJS;
+
+            function animateThreeJSWithGravity() {
+                requestAnimationFrame(animateThreeJSWithGravity);
+                animationTime += 0.016;
+
+                // Starfield slow rotation
+                if (starfield) {
+                    starfield.rotation.y += 0.0002;
+                    starfield.rotation.x += 0.0001;
+
+                    // Apply cursor gravity to starfield
+                    if (starfieldOriginalPositions) {
+                        const positions = starfield.geometry.attributes.position.array;
+
+                        // Convert cursor to 3D world approximate position
+                        const cursorWorldX = normalizedCursorX * 400;
+                        const cursorWorldY = normalizedCursorY * 300;
+
+                        for (let i = 0; i < positions.length; i += 3) {
+                            const origX = starfieldOriginalPositions[i];
+                            const origY = starfieldOriginalPositions[i + 1];
+                            const origZ = starfieldOriginalPositions[i + 2];
+
+                            // Base gravitation from scroll
+                            const targetX = damruGroup ? damruGroup.position.x : 0;
+                            const targetY = damruGroup ? damruGroup.position.y : -50;
+                            const targetZ = damruGroup ? damruGroup.position.z : -400;
+                            const gravitationStrength = scrollProgress * 0.3;
+
+                            // Calculate base position with scroll gravitation
+                            let newX = origX + (targetX - origX) * gravitationStrength;
+                            let newY = origY + (targetY - origY) * gravitationStrength;
+                            let newZ = origZ + (targetZ - origZ) * gravitationStrength;
+
+                            // Add cursor gravity effect (subtle)
+                            const distToCursor = Math.hypot(newX - cursorWorldX, newY - cursorWorldY);
+                            if (distToCursor < 200) {
+                                const cursorGravity = (200 - distToCursor) / 200 * GRAVITY_STRENGTH;
+                                newX += (cursorWorldX - newX) * cursorGravity;
+                                newY += (cursorWorldY - newY) * cursorGravity;
+                            }
+
+                            positions[i] = newX;
+                            positions[i + 1] = newY;
+                            positions[i + 2] = newZ;
+                        }
+
+                        starfield.geometry.attributes.position.needsUpdate = true;
+                    }
+                }
+
+                // Damru animations with cursor gravity
+                if (damruGroup) {
+                    // Gentle floating motion (sine wave)
+                    const baseX = Math.sin(animationTime * 0.5) * 5;
+                    const baseY = -50 + Math.sin(animationTime * 0.3) * 8;
+
+                    // Add subtle cursor attraction
+                    const cursorWorldX = normalizedCursorX * 30;
+                    const cursorWorldY = normalizedCursorY * 30;
+
+                    damruGroup.position.x = baseX + cursorWorldX * 0.1;
+                    damruGroup.position.y = baseY + cursorWorldY * 0.1;
+
+                    // Outer lobes slow rotation
+                    if (outerLobesPoints) {
+                        outerLobesPoints.rotation.y += 0.002;
+                    }
+
+                    // Inner ring faster rotation (3x speed)
+                    if (innerRingPoints) {
+                        innerRingPoints.rotation.y += 0.006;
+                    }
+
+                    // Core glow subtle pulsing
+                    if (coreGlow) {
+                        const pulse = 1 + Math.sin(animationTime * 2) * 0.1;
+                        coreGlow.scale.set(180 * pulse, 180 * pulse, 1);
+                    }
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            // Replace the animation loop (stop old one, start new one)
+            // Note: We can't truly "stop" requestAnimationFrame, but we can redirect
+            // The new function will take over rendering
+            animateThreeJSWithGravity();
+
+            // Add magnetic class to algorithm cards
+            document.querySelectorAll('.algorithm-card').forEach(card => {
+                card.classList.add('magnetic');
+            });
+
+            console.log('Cognitive Catalyst Cursor System initialized');
+
+        } // End of !isTouchDevice check
+
+        // Touch device fallback - just add a simple touch burst effect
+        if (isTouchDevice) {
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                if (touch) {
+                    // Simple touch feedback particle burst
+                    const colors = ['#FF8C00', '#4B0082'];
+                    for (let i = 0; i < 4; i++) {
+                        const particle = document.createElement('div');
+                        particle.style.cssText = `
+                            position: fixed;
+                            left: ${touch.clientX}px;
+                            top: ${touch.clientY}px;
+                            width: 8px;
+                            height: 8px;
+                            background: ${colors[i % 2]};
+                            border-radius: 50%;
+                            pointer-events: none;
+                            z-index: 9999;
+                        `;
+                        document.body.appendChild(particle);
+
+                        const angle = (i / 4) * Math.PI * 2;
+                        const targetX = touch.clientX + Math.cos(angle) * 40;
+                        const targetY = touch.clientY + Math.sin(angle) * 40;
+
+                        gsap.to(particle, {
+                            left: targetX,
+                            top: targetY,
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                            onComplete: () => particle.remove()
+                        });
+                    }
+                }
+            }, { passive: true });
+
+            console.log('Touch device detected - cursor system disabled, touch effects enabled');
+        }
     </script>
 </body>
 
