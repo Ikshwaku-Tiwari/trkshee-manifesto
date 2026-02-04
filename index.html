@@ -1094,14 +1094,19 @@
             const whiteColor = new THREE.Color(0xffffff);
             const amberColor = new THREE.Color(AMBER);
 
+            // Responsive starfield - smaller sphere on mobile so stars are visible
+            const starRadius = isMobileView ? 500 : 800;
+            const starZOffset = isMobileView ? 0 : -200;
+
             for (let i = 0; i < starCount; i++) {
-                const radius = 800;
+                const radius = starRadius;
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(2 * Math.random() - 1);
 
                 positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
                 positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-                positions[i * 3 + 2] = radius * Math.cos(phi) - 200;
+                positions[i * 3 + 2] = radius * Math.cos(phi) + starZOffset;
+
 
                 // Mix of cyan, white, and occasional amber stars
                 const rand = Math.random();
